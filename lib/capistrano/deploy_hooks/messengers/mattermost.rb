@@ -50,11 +50,11 @@ module Capistrano
         end
 
         def deployer
-          ENV["USER"] || ENV["USERNAME"]
+          ENV['BUILD_USER'] || Etc.getpwnam(ENV['USER']).gecos || ENV['USER'] || ENV['USERNAME']
         end
 
         def branch
-          fetch(:branch)
+          ENV['GIT_BRANCH'] || fetch(:branch)
         end
 
         def application
